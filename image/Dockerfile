@@ -54,7 +54,7 @@ RUN pivnet download-product-files --product-slug='tanzu-cluster-essentials' --re
 RUN mkdir tanzu-cluster-essentials
 RUN tar -xvf tanzu-cluster-essentials-linux-amd64-1.4.1.tgz -C tanzu-cluster-essentials
 RUN export INSTALL_BUNDLE=registry.tanzu.vmware.com/tanzu-cluster-essentials/cluster-essentials-bundle@sha256:2354688e46d4bb4060f74fca069513c9b42ffa17a0a6d5b0dbb81ed52242ea44
-RUN cd $HOME/tanzu-cluster-essentials
+RUN cd tanzu-cluster-essentials
 RUN ./install.sh --yes
 
 RUN cd ..
