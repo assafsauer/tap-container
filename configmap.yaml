@@ -3,20 +3,18 @@ kind: ConfigMap
 metadata:
   name: project-config
 data:
-  PROJECT_ID: "your-project-id"
-  ORG: "your-org"
-  ENV: "your-env"
-  APIGEE_TOKEN: "your-apigee-token"
-  SERVICE_ACCOUNT_KEY: "your-service-account-key"
-  AX_REGION: "europe-west1"
-  REGION: "europe-west1"
-  ZONE: "europe-west1-b,europe-west1-c,europe-west1-d"
-  NETWORK: "apigee-hybrid"
-  SUBNET: "apigee-europe-west1"
-  GKE_CLUSTER_NAME: "apigee-hybrid"
-  GKE_CLUSTER_MACHINE_TYPE: "e2-standard-4"
-  ENV_NAME: "test1"
-  ENV_GROUP_NAME: "test"
-  DNS_NAME: "my-ingress-ip.nip.io"
-  INGRESS_TYPE: "external"
-  CERT_TYPE: "google-managed"
+  tap_release: '1.4.0'
+  tap_namespace: dev
+  HARBOR_USER: tanzu
+  HARBOR_PWD: xxx
+  HARBOR_DOMAIN: hl.registriy.domain
+  INSTALL_REGISTRY_HOSTNAME: registry.tanzu.vmware.com
+  INSTALL_REGISTRY_USERNAME: email
+  INSTALL_REGISTRY_PASSWORD: xxxx
+  tap_release: '1.4.0'
+  tap_version: 1.4.1-build.3 ### pivnet... release-version='1.3.1-build.4' --product-file-id=1310085
+  framework_linux_md64: 1404617
+  gui_blank_Catalog: 1099786
+  gui_Yelb_Catalog: 1073911
+  essential: 1423994 ### pivnet download-product-files --product-slug='tanzu-cluster-essentials' --release-version='1.4.1' --product-file-id=1423994
+  VERSION: v0.25.0
