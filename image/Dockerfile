@@ -34,7 +34,7 @@ ARG INSTALL_REGISTRY_HOSTNAME
 ARG INSTALL_REGISTRY_USERNAME
 ARG INSTALL_REGISTRY_PASSWORD
 ARG tap_version
-ARG framework_linux_md64
+ARG framework_linux_amd64
 ARG gui_blank_Catalog
 ARG gui_Yelb_Catalog
 ARG essential
