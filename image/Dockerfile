@@ -9,23 +9,13 @@ RUN apk --no-cache add \
     bash \
     libc6-compat \
     openssh-client \
-    git
-
-# Update and install dependencies
-RUN apt-get update && \
-    apt-get install -y curl && \
-    apt-get install -y wget && \
-    apt-get install -y git
+    git \
+    docker
 
 # Install kubectl
 RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
-    install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-
-# Install helm
-RUN curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
-
-# Install docker
-RUN apt-get install -y docker.io
+    chmod +x ./kubectl && \
+    mv ./kubectl /usr/local/bin/kubectl
 
 # Install pivnet
 RUN wget  https://github.com/pivotal-cf/pivnet-cli/releases/download/v3.0.1/pivnet-linux-amd64-3.0.1
