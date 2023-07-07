@@ -11,20 +11,41 @@ RUN apk --no-cache add \
     openssh-client \
     git
 
-# Install gcloud
-ENV CLOUD_SDK_VERSION 359.0.0
-ENV PATH /google-cloud-sdk/bin:$PATH
-RUN curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz && \
-    tar xzf google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz && \
-    rm google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz && \
-    ln -s /lib /lib64 && \
-    gcloud config set core/disable_usage_reporting true && \
-    gcloud config set component_manager/disable_update_check true && \
-    gcloud config set metrics/environment github_docker_image && \
-    gcloud --version
+# Update and install dependencies
+RUN apt-get update && \
+    apt-get install -y curl && \
+    apt-get install -y wget && \
+    apt-get install -y git
 
 # Install kubectl
-RUN gcloud components install kubectl
+RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
+    install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 
-# Verify the installations
-RUN gcloud --version && kubectl version --client
+# Install helm
+RUN curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
+# Install docker
+RUN apt-get install -y docker.io
+
+# Install pivnet
+RUN wget  https://github.com/pivotal-cf/pivnet-cli/releases/download/v3.0.1/pivnet-linux-amd64-3.0.1
+RUN chmod 777 pivnet-linux-amd64-3.0.1
+RUN cp pivnet-linux-amd64-3.0.1 /usr/local/bin/pivnet
+RUN pivnet login --api-token=$token
+
+# download TAP from pivnet
+RUN pivnet download-product-files --product-slug='tanzu-application-platform' --release-version=$tap_version --product-file-id=$framework_linux_md64
+RUN pivnet download-product-files --product-slug='tanzu-application-platform' --release-version=$tap_version --product-file-id=$gui_blank_Catalog
+RUN pivnet download-product-files --product-slug='tanzu-application-platform' --release-version=$tap_version --product-file-id=$gui_Yelb_Catalog
+
+# download TAP cluster essential
+RUN pivnet download-product-files --product-slug='tanzu-cluster-essentials' --release-version='1.4.1' --product-file-id=1423994
+
+RUN mkdir tanzu-cluster-essentials
+RUN tar -xvf "tanzu-cluster-essentials-linux-amd64-1.4.1.tgz-"$tap_release".tgz" -C tanzu-cluster-essentials
+
+RUN export INSTALL_BUNDLE=registry.tanzu.vmware.com/tanzu-cluster-essentials/cluster-essentials-bundle@sha256:5fd527dda8af0e4c25c427e5659559a2ff9b283f6655a335ae08357ff63b8e7f
+RUN cd tanzu-cluster-essentials
+RUN ./install.sh --yes
+
+RUN cd ..
