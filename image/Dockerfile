@@ -21,6 +21,7 @@ RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/s
 RUN wget  https://github.com/pivotal-cf/pivnet-cli/releases/download/v3.0.1/pivnet-linux-amd64-3.0.1
 RUN chmod 777 pivnet-linux-amd64-3.0.1
 RUN cp pivnet-linux-amd64-3.0.1 /usr/local/bin/pivnet
+RUN echo $token
 RUN pivnet login --api-token=$token
 
 # download TAP from pivnet
