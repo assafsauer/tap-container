@@ -22,7 +22,8 @@ RUN wget  https://github.com/pivotal-cf/pivnet-cli/releases/download/v3.0.1/pivn
 RUN chmod 777 pivnet-linux-amd64-3.0.1
 RUN cp pivnet-linux-amd64-3.0.1 /usr/local/bin/pivnet
 RUN echo $token
-RUN pivnet login --api-token=$token
+ARG token
+RUN echo $token && pivnet login --api-token=$token
 
 # download TAP from pivnet
 RUN pivnet download-product-files --product-slug='tanzu-application-platform' --release-version=$tap_version --product-file-id=$framework_linux_md64
