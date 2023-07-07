@@ -22,7 +22,25 @@ RUN wget  https://github.com/pivotal-cf/pivnet-cli/releases/download/v3.0.1/pivn
 RUN chmod 777 pivnet-linux-amd64-3.0.1
 RUN cp pivnet-linux-amd64-3.0.1 /usr/local/bin/pivnet
 RUN echo $token
+
+# set VARS from kaniko args
 ARG token
+ARG tap_release
+ARG tap_namespace
+ARG HARBOR_USER
+ARG HARBOR_PWD
+ARG HARBOR_DOMAIN
+ARG INSTALL_REGISTRY_HOSTNAME
+ARG INSTALL_REGISTRY_USERNAME
+ARG INSTALL_REGISTRY_PASSWORD
+ARG tap_version
+ARG framework_linux_md64
+ARG gui_blank_Catalog
+ARG gui_Yelb_Catalog
+ARG essential
+ARG VERSION
+
+
 RUN echo $token && pivnet login --api-token=$token
 
 # download TAP from pivnet
