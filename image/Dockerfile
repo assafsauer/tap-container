@@ -57,4 +57,7 @@ RUN export INSTALL_BUNDLE=registry.tanzu.vmware.com/tanzu-cluster-essentials/clu
 RUN cd tanzu-cluster-essentials
 #RUN ./install.sh --yes
 
+RUN pivnet download-product-files --product-slug='imgpkg' --release-version='0.29.0' --product-file-id=1219927
+
+
 #RUN cd ..
