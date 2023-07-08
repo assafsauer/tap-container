@@ -58,6 +58,7 @@ RUN cd tanzu-cluster-essentials
 #RUN ./install.sh --yes
 
 RUN pivnet download-product-files --product-slug='imgpkg' --release-version='0.29.0' --product-file-id=1219927
-
+RUN chmod 777 imgpkg-linux-amd64-0.29.0
+RUN cp imgpkg-linux-amd64-0.29.0 usr/bin/imgpkg
 
 #RUN cd ..
