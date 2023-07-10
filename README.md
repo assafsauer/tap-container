@@ -17,6 +17,7 @@ args:
 - "--destination=asauer/tap-install:latest"
 - "--build-arg"
 - "--tap_release=1.4.0"
+```
 
 ## Configuration and Automation
 Once the Docker image is ready, a ConfigMap is used to manage the environment variables required for the TAP installation.
