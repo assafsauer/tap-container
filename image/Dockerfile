@@ -64,4 +64,14 @@ RUN cp imgpkg-linux-amd64-0.29.0 usr/bin/imgpkg
 #COPY ./template /template
 COPY ./offline-imgpkg.sh offline-imgpkg.sh
 
+RUN docker login -u ${INSTALL_REGISTRY_USERNAME} -p ${INSTALL_REGISTRY_PASSWORD} ${INSTALL_REGISTRY_HOSTNAME}
+RUN imgpkg copy \
+    -b registry.tanzu.vmware.com/tanzu-cluster-essentials/cluster-essentials-bundle@sha256:a119cb90111379a5f91d27ae572a0de860dd7322179ab856fb32c45be95d78f5 \
+    --to-tar cluster-essentials-bundle-1.4.2.tar \
+    --include-non-distributable-layers
+RUN imgpkg copy \
+  -b registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:$TAP_VERSION \
+  --to-tar tap-packages-$TAP_VERSION.tar \
+  --include-non-distributable-layers
+
 #RUN cd ..
