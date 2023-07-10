@@ -20,3 +20,14 @@ export IMGPKG_REGISTRY_USERNAME_1=$HARBOR_USER
 export IMGPKG_REGISTRY_PASSWORD_1=$HARBOR_PWD
 export TAP_VERSION=$tap_release
 #export REGISTRY_CA_PATH=PATH-TO-CA
+
+imgpkg copy \
+  -b registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:$TAP_VERSION \
+  --to-tar tap-packages-$TAP_VERSION.tar \
+  --include-non-distributable-layers
+
+  imgpkg copy \
+  --tar tap-packages-$TAP_VERSION.tar \
+  --to-repo $IMGPKG_REGISTRY_HOSTNAME_1/tap/tap-packages \
+  --include-non-distributable-layers \
+  #--registry-ca-cert-path $REGISTRY_CA_PATH
