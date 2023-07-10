@@ -12,6 +12,9 @@ imgpkg copy \
 
  
 ### tap ###
+
+## https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.4/tap/install-offline-profile.html
+
 export IMGPKG_REGISTRY_HOSTNAME_0=$INSTALL_REGISTRY_HOSTNAME
 export IMGPKG_REGISTRY_USERNAME_0=$INSTALL_REGISTRY_USERNAME
 export IMGPKG_REGISTRY_PASSWORD_0=$INSTALL_REGISTRY_PASSWORD 
