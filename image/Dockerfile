@@ -65,6 +65,13 @@ RUN cp imgpkg-linux-amd64-0.29.0 usr/bin/imgpkg
 COPY ./offline-imgpkg.sh offline-imgpkg.sh
 
 RUN docker login -u ${INSTALL_REGISTRY_USERNAME} -p ${INSTALL_REGISTRY_PASSWORD} ${INSTALL_REGISTRY_HOSTNAME}
+RUN export IMGPKG_REGISTRY_HOSTNAME_0=$INSTALL_REGISTRY_HOSTNAME
+RUN export IMGPKG_REGISTRY_USERNAME_0=$INSTALL_REGISTRY_USERNAME
+RUN export IMGPKG_REGISTRY_PASSWORD_0=$INSTALL_REGISTRY_PASSWORD 
+RUN export IMGPKG_REGISTRY_HOSTNAME_1=$HARBOR_DOMAIN
+RUN export IMGPKG_REGISTRY_USERNAME_1=$HARBOR_USER
+RUN export IMGPKG_REGISTRY_PASSWORD_1=$HARBOR_PWD
+RUN export TAP_VERSION=$tap_release
 RUN imgpkg copy \
     -b registry.tanzu.vmware.com/tanzu-cluster-essentials/cluster-essentials-bundle@sha256:a119cb90111379a5f91d27ae572a0de860dd7322179ab856fb32c45be95d78f5 \
     --to-tar cluster-essentials-bundle-1.4.2.tar \
