@@ -60,6 +60,11 @@ RUN cd tanzu-cluster-essentials
 RUN pivnet download-product-files --product-slug='imgpkg' --release-version='0.29.0' --product-file-id=1219927
 RUN chmod 777 imgpkg-linux-amd64-0.29.0
 RUN cp imgpkg-linux-amd64-0.29.0 usr/bin/imgpkg
+RUN docker login -u ${INSTALL_REGISTRY_USERNAME} -p ${INSTALL_REGISTRY_PASSWORD} ${INSTALL_REGISTRY_HOSTNAME}
+RUN imgpkg copy \
+    -b registry.tanzu.vmware.com/tanzu-cluster-essentials/cluster-essentials-bundle@sha256:a119cb90111379a5f91d27ae572a0de860dd7322179ab856fb32c45be95d78f5 \
+    --to-tar cluster-essentials-bundle-1.4.2.tar \
+    --include-non-distributable-layers
 
 #COPY ./template /template
 #COPY ./offline-imgpkg.sh offline-imgpkg.sh
