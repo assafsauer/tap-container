@@ -61,7 +61,7 @@ RUN pivnet download-product-files --product-slug='imgpkg' --release-version='0.2
 RUN chmod 777 imgpkg-linux-amd64-0.29.0
 RUN cp imgpkg-linux-amd64-0.29.0 usr/bin/imgpkg
 
-#COPY ./template /template
-
+COPY ./template /template
+COPY ./offline-imgpkg.sh offline-imgpkg.sh
 
 #RUN cd ..
