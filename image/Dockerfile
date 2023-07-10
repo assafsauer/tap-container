@@ -66,6 +66,7 @@ RUN imgpkg copy \
     --to-tar cluster-essentials-bundle-1.4.2.tar \
     --include-non-distributable-layers
 
-#COPY ./template /template
-#COPY ./offline-imgpkg.sh offline-imgpkg.sh
-
+RUN imgpkg copy \
+  -b registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:$TAP_VERSION \
+  --to-tar tap-packages-$TAP_VERSION.tar \
+  --include-non-distributable-layers
