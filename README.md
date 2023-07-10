@@ -8,7 +8,7 @@ The primary objective of this project is to simplify and potentially automate th
 
 The `kaniko.yaml` file is used to build the Docker image. It pulls all the necessary dependencies required for the TAP installation. 
 
-Please note that the arguments provided to Kaniko will not persist in the image after the build process is complete. The arguments are as follows:
+Please note that the arguments provided to Kaniko will not persist in the image after the build process is complete (so no worry)
 
 ```yaml
 args:
@@ -22,6 +22,12 @@ args:
 ## Configuration and Automation
 Once the Docker image is ready, a ConfigMap is used to manage the environment variables required for the TAP installation.
 
+```yaml
+data:
+  tap_release: '1.4.0'
+  tap_namespace: 'dev'
+  HARBOR_USER: 'tanzu'
+```
 In addition to the Docker image and ConfigMap, this repository will also contain automation scripts (currently under development) that will trigger the TAP installation process automatically.
 
-Stay tuned for updates and feel free to contribute to this project to help improve the automation of TAP installations in air-gapped environments.
+
