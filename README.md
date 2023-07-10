@@ -1,4 +1,4 @@
-# Dockerizing Tanzu Application Platform (TAP) Installation Pod
+# Dockerizing Tanzu Application Platform (TAP) Installation Pod for Air-Gapped Env.
 
 This repository contains the necessary resources to create a Docker image that encapsulates all dependencies required for a complete installation of VMware Tanzu Application Platform (TAP) in an air-gapped environment.
 
