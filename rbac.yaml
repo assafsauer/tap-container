@@ -5,18 +5,13 @@ metadata:
   namespace: default 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
+kind: ClusterRole
 metadata:
-  name: my-role-binding
-  namespace: default
-subjects:
-- kind: ServiceAccount
-  name: my-service-account
-  namespace: default
-roleRef:
-  kind: ClusterRole
-  name: view
-  apiGroup: rbac.authorization.k8s.io
+  name: node-and-namespace-viewer
+rules:
+- apiGroups: [""]
+  resources: ["nodes", "namespaces"]
+  verbs: ["get", "list", "watch"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -28,6 +23,5 @@ subjects:
   namespace: default
 roleRef:
   kind: ClusterRole
-  name: view
+  name: node-and-namespace-viewer
   apiGroup: rbac.authorization.k8s.io
----
