@@ -70,3 +70,7 @@ RUN imgpkg copy \
   -b registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:$tap_release \
   --to-tar tap-packages-$tap_release.tar \
   --include-non-distributable-layers
+
+
+COPY ../template-2 /
+
