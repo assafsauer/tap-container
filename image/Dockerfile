@@ -67,6 +67,6 @@ RUN imgpkg copy \
     --include-non-distributable-layers
 
 RUN imgpkg copy \
-  -b registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:$TAP_VERSION \
-  --to-tar tap-packages-$TAP_VERSION.tar \
+  -b registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:$tap_release \
+  --to-tar tap-packages-$tap_release.tar \
   --include-non-distributable-layers
