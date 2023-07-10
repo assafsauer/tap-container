@@ -72,5 +72,5 @@ RUN imgpkg copy \
   --include-non-distributable-layers
 
 
-COPY ../template-2 /
+COPY ../template /
 
