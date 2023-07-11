@@ -34,4 +34,15 @@ kubectl apply -f git-secret.yaml -n $tap_namespace
 kubectl create secret generic k8s-reader-overlay --from-file=rbac.overlay.yml -n tap-install
 
 ### install essential for GKE ###
-mkdir tanzu-cluster-essentials
+### install essential for GKE ###
+
+export INSTALL_BUNDLE=registry.tanzu.vmware.com/tanzu-cluster-essentials/cluster-essentials-bundle@sha256:2354688e46d4bb4060f74fca069513c9b42ffa17a0a6d5b0dbb81ed52242ea44
+
+export INSTALL_BUNDLE=$HARBOR_DOMAIN/tap/cluster-essentials-bundle@sha256:a119cb90111379a5f91d27ae572a0de860dd7322179ab856fb32c45be95d78f5
+
+cd tanzu-cluster-essentials
+
+./install --yes
+
+cd ..
+
