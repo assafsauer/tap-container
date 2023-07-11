@@ -21,7 +21,7 @@ tap_version=1.4.1-build.3 #pivnet... release-version='1.3.1-build.4' --product-f
 export VERSION=v0.25.0 #sudo install cli/core/$VERSION/tanzu-core-linux_amd64 /usr/local/bin/tanzu
 
 ### optional: TAP GUI ####
-export git_token=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
+export git_token=xxx
 #export catalog_info="https://github.com/assafsauer/tap-catalog-2/blob/main/catalog-info.yaml"
 export repo_owner=assafsauer
 export  repo_name=spring-petclinic-accelerators 
