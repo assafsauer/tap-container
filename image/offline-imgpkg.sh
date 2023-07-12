@@ -39,3 +39,7 @@ export TAP_VERSION=$tap_release
   --to-repo $IMGPKG_REGISTRY_HOSTNAME_1/tap/tap-packages \
   --include-non-distributable-layers \
   #--registry-ca-cert-path $REGISTRY_CA_PATH
+
+  ### copy TBS deps
+RUN imgpkg copy --tar tbs-full-deps.tar \
+  --to-repo=$HARBOR_DOMAIN/tap/tbs-full-deps
