@@ -54,27 +54,11 @@ RUN pivnet download-product-files --product-slug='tanzu-cluster-essentials' --re
 
 RUN mkdir tanzu-cluster-essentials
 RUN tar -xvf tanzu-cluster-essentials-linux-amd64-1.4.1.tgz -C tanzu-cluster-essentials
-RUN export INSTALL_BUNDLE=registry.tanzu.vmware.com/tanzu-cluster-essentials/cluster-essentials-bundle@sha256:2354688e46d4bb4060f74fca069513c9b42ffa17a0a6d5b0dbb81ed52242ea44
-RUN cd tanzu-cluster-essentials
-#RUN ./install.sh --yes
 
 RUN pivnet download-product-files --product-slug='imgpkg' --release-version='0.29.0' --product-file-id=1219927
 RUN chmod 777 imgpkg-linux-amd64-0.29.0
 RUN cp imgpkg-linux-amd64-0.29.0 usr/bin/imgpkg
 RUN docker login -u ${INSTALL_REGISTRY_USERNAME} -p ${INSTALL_REGISTRY_PASSWORD} ${INSTALL_REGISTRY_HOSTNAME}
 
-RUN imgpkg copy \
-    -b registry.tanzu.vmware.com/tanzu-cluster-essentials/cluster-essentials-bundle@sha256:a119cb90111379a5f91d27ae572a0de860dd7322179ab856fb32c45be95d78f5 \
-    --to-tar cluster-essentials-bundle-1.4.2.tar \
-    --include-non-distributable-layers
-
-RUN imgpkg copy \
-  -b registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:$tap_release \
-  --to-tar tap-packages-$tap_release.tar \
-  --include-non-distributable-layers
-
-RUN imgpkg copy -b registry.tanzu.vmware.com/tanzu-application-platform/full-tbs-deps-package-repo:$tbs \
-  --to-tar=tbs-full-deps.tar
-
 COPY ../template /
-
+COPY tap.sh / 
