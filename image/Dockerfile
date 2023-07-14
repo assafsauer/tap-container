@@ -43,8 +43,9 @@ RUN pivnet download-product-files --product-slug='tanzu-application-platform' --
 
 # download TAP cluster essential
 RUN echo $tap_version
+RUN echo $gui_blank_Catalog
 RUN pivnet download-product-files --product-slug='tanzu-cluster-essentials' --release-version=$tap_release --product-file-id=$essential
-RUN  pivnet download-product-files --product-slug='tanzu-application-platform' --release-version=$tap_version --product-file-id=$gui_blank_Catalog
+RUN pivnet download-product-files --product-slug='tanzu-application-platform' --release-version=$tap_version --product-file-id=$gui_blank_Catalog
 RUN pivnet download-product-files --product-slug='tanzu-application-platform' --release-version=$tap_version --product-file-id=$gui_Yelb_Catalog
 
 RUN mkdir tanzu-cluster-essentials
