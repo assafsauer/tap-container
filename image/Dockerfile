@@ -42,7 +42,7 @@ RUN echo $token && pivnet login --api-token=$token
 RUN pivnet download-product-files --product-slug='tanzu-application-platform' --release-version=$tap_release --product-file-id=$framework_linux_amd64
 
 # download TAP cluster essential
-RUN ECHO $tap_version
+RUN echo $tap_version
 RUN pivnet download-product-files --product-slug='tanzu-cluster-essentials' --release-version=$tap_release --product-file-id=$essential
 RUN  pivnet download-product-files --product-slug='tanzu-application-platform' --release-version=$tap_version --product-file-id=$gui_blank_Catalog
 RUN pivnet download-product-files --product-slug='tanzu-application-platform' --release-version=$tap_version --product-file-id=$gui_Yelb_Catalog
