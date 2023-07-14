@@ -1,4 +1,3 @@
- 
 # /bin/bash
 
 
@@ -9,16 +8,14 @@
 export tap_namespace=dev
 export HARBOR_USER=asauer
 export HARBOR_PWD="xxxx"
-export HARBOR_DOMAIN="docker.io/asauer"
+export HARBOR_DOMAIN="index.docker.io/asauer"
 export tbs=1.9.6
-export INSTALL_REGISTRY_HOSTNAME="docker.io/asauer"
-export INSTALL_REGISTRY_USERNAME=asauer
+export INSTALL_REGISTRY_HOSTNAME="registry.tanzu.vmware.com"
+export INSTALL_REGISTRY_USERNAME="sauera@vmware.com
 export INSTALL_REGISTRY_PASSWORD="xxxx"
 
 export domain=source-lab.io
-export BUNDLE=$HARBOR_DOMAIN/"tap@sha256:a119cb90111379a5f91d27ae572a0de860dd7322179ab856fb32c45be95d78f5"
-
-###  TAP Version ####
+##  TAP Version ####
 tap_release='1.4.0'
 tap_version=1.4.1-build.3 #pivnet... release-version='1.3.1-build.4' --product-file-id=1310085
 export VERSION=v0.25.4.4 #sudo install cli/core/$VERSION/tanzu-core-linux_amd64 /usr/local/bin/tanzu
@@ -30,6 +27,7 @@ export repo_owner=assafsauer
 export  repo_name=spring-petclinic-accelerators 
 export tbs=1.9.6
 
+export INSTALL_BUNDLE=registry.tanzu.vmware.com/tanzu-cluster-essentials/cluster-essentials-bundle@sha256:a119cb90111379a5f91d27ae572a0de860dd7322179ab856fb32c45be95d78f5
 ################## Install ##################
 ##########################################
 
@@ -41,10 +39,6 @@ kubectl apply -f git-secret.yaml -n $tap_namespace
 kubectl create secret generic k8s-reader-overlay --from-file=rbac.overlay.yml -n tap-install
 
 ### install essential for GKE ###
-
-
-#INSTALL_BUNDLE=$HARBOR_DOMAIN/tap@sha256:a119cb90111379a5f91d27ae572a0de860dd7322179ab856fb32c45be95d78f5
-INSTALL_BUNDLE=$BUNDLE
 
 cd tanzu-cluster-essentials
 
@@ -111,15 +105,16 @@ kubectl create secret docker-registry registry-credentials --docker-server=${HAR
 
 envsubst < gke-tap-values.yml > tap-base-final.yml
 
-tanzu package repository add tbs-full-deps-repository \
+#tanzu package repository add tbs-full-deps-repository \
   --url $HARBOR_DOMAIN/tap/tbs-full-deps:$tbs \
   --namespace tap-install
 
+tanzu package repository add tanzu-tap-repository --url registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:$tap_version --namespace tap-install
+
+sleep 50
+
+tanzu package install tap -p tap.tanzu.vmware.com -v $tap_version --values-file tap-base-final.yml -n tap-install
 
 
-### export INSTALL_BUNDLE=registry.tanzu.vmware.com/tanzu-cluster-essentials/cluster-essentials-bundle@sha256:2354688e46d4bb4060f74fca069513c9b42ffa17a0a6d5b0dbb81ed52242ea44
-export INSTALL_BUNDLE=$HARBOR_DOMAIN/tap/cluster-essentials-bundle@sha256:a119cb90111379a5f91d27ae572a0de860dd7322179ab856fb32c45be95d78f5
+#tanzu package installed update --install tap -p tap.tanzu.vmware.com -v $tap_version -n tap-install --poll-timeout 30m -f tap-base-final.yml 
 
-tanzu package repository add tbs-full-deps-repository \
-  --url $HARBOR_DOMAIN/tap:$tbs \
-  --namespace tap-install
