@@ -34,7 +34,8 @@ ARG framework_linux_amd64
 ARG essential
 ARG VERSION
 ARG tbs
-
+ARG gui_blank_Catalog
+ARG gui_Yelb_Catalog
 
 RUN echo $token && pivnet login --api-token=$token
 
