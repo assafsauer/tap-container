@@ -5,7 +5,7 @@ shared:
   
 ceip_policy_disclosed: true
 buildservice:
-  kp_default_repository: harbor.source-lab.io/build-service
+  kp_default_repository: $HARBOR_DOMAIN/build-service
   kp_default_repository_username: $HARBOR_USER
   kp_default_repository_password: $HARBOR_PWD
   enable_automatic_dependency_updates: true
