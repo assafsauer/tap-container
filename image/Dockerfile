@@ -29,12 +29,6 @@ RUN echo $token
 ARG token
 ARG tap_release
 ARG tap_namespace
-ARG HARBOR_USER
-ARG HARBOR_PWD
-ARG HARBOR_DOMAIN
-ARG INSTALL_REGISTRY_HOSTNAME
-ARG INSTALL_REGISTRY_USERNAME
-ARG INSTALL_REGISTRY_PASSWORD
 ARG tap_version
 ARG framework_linux_amd64
 ARG essential
@@ -48,6 +42,7 @@ RUN echo $token && pivnet login --api-token=$token
 RUN pivnet download-product-files --product-slug='tanzu-application-platform' --release-version=$tap_release --product-file-id=$framework_linux_amd64
 
 # download TAP cluster essential
+RUN ECHO $tap_version
 RUN pivnet download-product-files --product-slug='tanzu-cluster-essentials' --release-version=$tap_release --product-file-id=$essential
 RUN  pivnet download-product-files --product-slug='tanzu-application-platform' --release-version=$tap_version --product-file-id=$gui_blank_Catalog
 RUN pivnet download-product-files --product-slug='tanzu-application-platform' --release-version=$tap_version --product-file-id=$gui_Yelb_Catalog
