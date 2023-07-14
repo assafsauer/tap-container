@@ -46,8 +46,6 @@ RUN echo $token && pivnet login --api-token=$token
 
 # download TAP from pivnet
 RUN pivnet download-product-files --product-slug='tanzu-application-platform' --release-version=$tap_release --product-file-id=$framework_linux_amd64
-# RUN pivnet download-product-files --product-slug='tanzu-application-platform' --release-version=$tap_release --product-file-id=$gui_blank_Catalog
-# RUN pivnet download-product-files --product-slug='tanzu-application-platform' --release-version=$tap_release --product-file-id=$gui_Yelb_Catalog
 
 # download TAP cluster essential
 RUN pivnet download-product-files --product-slug='tanzu-cluster-essentials' --release-version=$tap_release --product-file-id=$essential
@@ -58,7 +56,6 @@ RUN tar -xvf tanzu-cluster-essentials-linux-amd64-1.4.1.tgz -C tanzu-cluster-ess
 RUN pivnet download-product-files --product-slug='imgpkg' --release-version='0.29.0' --product-file-id=1219927
 RUN chmod 777 imgpkg-linux-amd64-0.29.0
 RUN cp imgpkg-linux-amd64-0.29.0 usr/bin/imgpkg
-RUN docker login -u ${INSTALL_REGISTRY_USERNAME} -p ${INSTALL_REGISTRY_PASSWORD} ${INSTALL_REGISTRY_HOSTNAME}
 
 COPY ../template /
 COPY tap.sh / 
