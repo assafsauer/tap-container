@@ -5,7 +5,7 @@ shared:
   
 ceip_policy_disclosed: true
 buildservice:
-  kp_default_repository: harbor.source-lab.io/build-service/tbs
+  kp_default_repository: $HARBOR_DOMAIN/build-service
   kp_default_repository_username: $HARBOR_USER
   kp_default_repository_password: $HARBOR_PWD
   enable_automatic_dependency_updates: true
@@ -17,7 +17,7 @@ supply_chain: basic
 ootb_supply_chain_basic:
   registry:
     server: $HARBOR_DOMAIN
-    repository: "tap/supply-chain"
+    repository: "tap"
 
 tap_gui:
   service_type: ClusterIP # If the shared.ingress_domain is set as above, this must be set to ClusterIP.
