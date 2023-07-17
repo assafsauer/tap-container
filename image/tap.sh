@@ -5,27 +5,26 @@
 ##########################################
 
 
-export tap_namespace=dev
-export HARBOR_USER=asauer
-export HARBOR_PWD="xxxx"
-export HARBOR_DOMAIN="index.docker.io/asauer"
-export tbs=1.9.6
-export INSTALL_REGISTRY_HOSTNAME="registry.tanzu.vmware.com"
-export INSTALL_REGISTRY_USERNAME="sauera@vmware.com
-export INSTALL_REGISTRY_PASSWORD="xxxx"
+#export tap_namespace=dev
+#export HARBOR_USER=asauer
+#export HARBOR_PWD="xxxx"
+#export HARBOR_DOMAIN="index.docker.io/asauer"
+#export tbs=1.9.6
+#export INSTALL_REGISTRY_HOSTNAME="registry.tanzu.vmware.com"
+#export INSTALL_REGISTRY_USERNAME="sauera@vmware.com
+#export INSTALL_REGISTRY_PASSWORD="xxxx"
 
-export domain=source-lab.io
+#export domain=source-lab.io
 ##  TAP Version ####
 tap_release='1.4.0'
 tap_version=1.4.1-build.3 #pivnet... release-version='1.3.1-build.4' --product-file-id=1310085
 export VERSION=v0.25.4.4 #sudo install cli/core/$VERSION/tanzu-core-linux_amd64 /usr/local/bin/tanzu
 
 ### optional: TAP GUI ####
-export git_token=xxx
+#export git_token=xxx
 #export catalog_info="https://github.com/assafsauer/tap-catalog-2/blob/main/catalog-info.yaml"
 export repo_owner=assafsauer
 export  repo_name=spring-petclinic-accelerators 
-export tbs=1.9.6
 
 export INSTALL_BUNDLE=registry.tanzu.vmware.com/tanzu-cluster-essentials/cluster-essentials-bundle@sha256:a119cb90111379a5f91d27ae572a0de860dd7322179ab856fb32c45be95d78f5
 ################## Install ##################
@@ -91,7 +90,7 @@ tanzu secret registry add tap-registry \
 
 tanzu secret registry add harbor-registry -y \
 --username ${HARBOR_USER} --password ${HARBOR_PWD} \
---server ${HARBOR_DOMAIN}  \
+--server ${HARBOR_DOMAIN}/v1  \
  --export-to-all-namespaces --yes --namespace tap-install
 
 
@@ -116,5 +115,6 @@ sleep 50
 tanzu package install tap -p tap.tanzu.vmware.com -v $tap_version --values-file tap-base-final.yml -n tap-install
 
 
-#tanzu package installed update --install tap -p tap.tanzu.vmware.com -v $tap_version -n tap-install --poll-timeout 30m -f tap-base-final.yml 
+#tanzu package installed update tap -p tap.tanzu.vmware.com -v 1.5.3  --values-file tap-base-final.yml -n tap-install
+
 
