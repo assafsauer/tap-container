@@ -53,7 +53,7 @@ rm -r tanzu
 mkdir tanzu
 
 ## Linux OS ##
-tar -xvf tanzu-framework-linux-amd64-$VERSION.tar -C tanzu
+tar -xvf tanzu-framework-linux-amd64-v*.tar -C tanzu
 cd tanzu
 export TANZU_CLI_NO_INIT=true
 install cli/core/v*/tanzu-core-linux_amd64 /usr/local/bin/tanzu
