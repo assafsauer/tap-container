@@ -19,6 +19,7 @@
 tap_release='1.4.0'
 tap_version=1.4.1-build.3 #pivnet... release-version='1.3.1-build.4' --product-file-id=1310085
 export VERSION=v0.25.4.4 #sudo install cli/core/$VERSION/tanzu-core-linux_amd64 /usr/local/bin/tanzu
+HARBOR_DOMAIN_V1=$HARBOR_DOMAIN/v1
 
 ### optional: TAP GUI ####
 #export git_token=xxx
@@ -90,7 +91,7 @@ tanzu secret registry add tap-registry \
 
 tanzu secret registry add harbor-registry -y \
 --username ${HARBOR_USER} --password ${HARBOR_PWD} \
---server ${HARBOR_DOMAIN}/v1  \
+--server ${HARBOR_DOMAIN_V1}  \
  --export-to-all-namespaces --yes --namespace tap-install
 
 
