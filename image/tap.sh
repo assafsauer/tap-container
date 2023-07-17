@@ -16,9 +16,9 @@
 
 #export domain=source-lab.io
 ##  TAP Version ####
-tap_release='1.4.0'
-tap_version=1.4.1-build.3 #pivnet... release-version='1.3.1-build.4' --product-file-id=1310085
-export VERSION=v0.25.4.4 #sudo install cli/core/$VERSION/tanzu-core-linux_amd64 /usr/local/bin/tanzu
+#tap_release='1.4.0'
+#tap_version=1.4.1-build.3 #pivnet... release-version='1.3.1-build.4' --product-file-id=1310085
+#export VERSION=v0.25.4.4 #sudo install cli/core/$VERSION/tanzu-core-linux_amd64 /usr/local/bin/tanzu
 HARBOR_DOMAIN_V1="index.docker.io/v1/asauer"
 
 ### optional: TAP GUI ####
@@ -109,9 +109,14 @@ envsubst < gke-tap-values.yml > tap-base-final.yml
   --url $HARBOR_DOMAIN/tap/tbs-full-deps:$tbs \
   --namespace tap-install
 
+echo "updating packages"
 tanzu package repository add tanzu-tap-repository --url registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:$tap_version --namespace tap-install
 
+echo "sleep 50"
+
 sleep 50
+
+echo "install tap"
 
 tanzu package install tap -p tap.tanzu.vmware.com -v $tap_version --values-file tap-base-final.yml -n tap-install
 
