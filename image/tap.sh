@@ -19,7 +19,7 @@
 tap_release='1.4.0'
 tap_version=1.4.1-build.3 #pivnet... release-version='1.3.1-build.4' --product-file-id=1310085
 export VERSION=v0.25.4.4 #sudo install cli/core/$VERSION/tanzu-core-linux_amd64 /usr/local/bin/tanzu
-HARBOR_DOMAIN_V1=$HARBOR_DOMAIN/v1
+HARBOR_DOMAIN_V1="index.docker.io/v1/asauer"
 
 ### optional: TAP GUI ####
 #export git_token=xxx
@@ -99,9 +99,9 @@ tanzu secret registry add harbor-registry -y \
 ##########################################
 
 ### temp workaround for the "ServiceAccountSecretError" issue
-kubectl create secret docker-registry registry-credentials --docker-server=${HARBOR_DOMAIN} --docker-username=${HARBOR_USER} --docker-password=${HARBOR_PWD} -n tap-install
+kubectl create secret docker-registry registry-credentials --docker-server=${{HARBOR_DOMAIN_V1} --docker-username=${HARBOR_USER} --docker-password=${HARBOR_PWD} -n tap-install
 
-kubectl create secret docker-registry registry-credentials --docker-server=${HARBOR_DOMAIN} --docker-username=${HARBOR_USER} --docker-password=${HARBOR_PWD} -n $tap_namespace
+kubectl create secret docker-registry registry-credentials --docker-server=${{HARBOR_DOMAIN_V1} --docker-username=${HARBOR_USER} --docker-password=${HARBOR_PWD} -n $tap_namespace
 
 envsubst < gke-tap-values.yml > tap-base-final.yml
 
