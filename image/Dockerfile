@@ -36,6 +36,7 @@ ARG VERSION
 ARG tbs
 ARG gui_blank_Catalog
 ARG gui_Yelb_Catalog
+ARG essential_ver
 
 RUN echo $token && pivnet login --api-token=$token
 
@@ -49,9 +50,11 @@ RUN pivnet download-product-files --product-slug='tanzu-cluster-essentials' --re
 RUN pivnet download-product-files --product-slug='tanzu-application-platform' --release-version=$tap_version --product-file-id=$gui_blank_Catalog
 RUN pivnet download-product-files --product-slug='tanzu-application-platform' --release-version=$tap_version --product-file-id=$gui_Yelb_Catalog
 
+## exreact essential
 RUN mkdir tanzu-cluster-essentials
-RUN tar -xvf tanzu-cluster-essentials-linux-amd64-1.4.1.tgz -C tanzu-cluster-essentials
+RUN tar -xvf tanzu-cluster-essentials-linux-amd64-$essential_ver.tgz -C tanzu-cluster-essentials
 
+## install imgpkg
 RUN pivnet download-product-files --product-slug='imgpkg' --release-version='0.29.0' --product-file-id=1219927
 RUN chmod 777 imgpkg-linux-amd64-0.29.0
 RUN cp imgpkg-linux-amd64-0.29.0 usr/bin/imgpkg
