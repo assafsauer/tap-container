@@ -1,56 +1,65 @@
-profile: full
-
 shared:
   ingress_domain: apps.$domain
-  
-ceip_policy_disclosed: true
-buildservice:
-  kp_default_repository: $HARBOR_DOMAIN/build-service
-  kp_default_repository_username: $HARBOR_USER
-  kp_default_repository_password: $HARBOR_PWD
-  
-supply_chain: basic
-ootb_supply_chain_basic:
+  #ingress_issuer: # Optional, can denote a cert-manager.io/v1/#ClusterIssuer of your choice. Defaults to "tap-ingress-selfsigned".
+
+  image_registry:
+    project_path: $HARBOR_DOMAIN/build-service
+    username: $HARBOR_USER
+    password: $HARBOR_PWD
+
+  #kubernetes_distribution: "1.26.5" # Only required if the distribution is OpenShift and must be used with the following kubernetes_version key.
+
+  #kubernetes_version: "1.26.5"  # Required regardless of distribution when Kubernetes version is 1.25 or later.
+
+
+ceip_policy_disclosed: true # Installation fails if this is not set to true. Not a string.
+
+
+profile: full # Can take iterate, build, run, view.
+
+supply_chain: basic # Can take testing, testing_scanning.
+
+
+ootb_supply_chain_basic: # Based on supply_chain set above, can be changed to ootb_supply_chain_testing, ootb_supply_chain_testing_scanning.
   registry:
-    server: $HARBOR_DOMAIN
-    repository: "tap"
- 
+    server: $HARBOR_DOMAIN # Takes the value from the shared section by default, but can be overridden by setting a different value.
+    repository: "tap" # Takes the value from the shared section by default, but can be overridden by setting a different value.
+  #gitops:
+    #ssh_secret: "SSH-SECRET-KEY" # Takes "" as value by default; but can be overridden by setting a different value.
 
 contour:
   envoy:
     service:
-      type: LoadBalancer
-      
+      type: LoadBalancer # This is set by default, but can be overridden by setting a different value.
+
+
+buildservice:
+  kp_default_repository:  $HARBOR_DOMAIN/build-service"
+  kp_default_repository_username: $HARBOR_USER
+  kp_default_repository_password:  $HARBOR_PWD
+
 tap_gui:
-  service_type: ClusterIP
+  metadataStoreAutoconfiguration: true # Creates a service account, the Kubernetes control plane token and the requisite app_config block to enable communications between Tanzu Application Platform GUI and SCST - Store.
+  app_config:
+    catalog:
+      locations:
+        - type: url
+          target: "https://github.com/assafsauer/tap-catalog-2/blob/main/catalog-info.yaml" 
+
+metadata_store:
+  ns_for_export_app_cert: "dev" # Verify this namespace is available within your cluster before initiating the Tanzu Application Platform installation.
+  app_service_type: ClusterIP # Defaults to LoadBalancer. If shared.ingress_domain is set earlier, this must be set to ClusterIP.
 
 scanning:
   metadataStore:
-    url: "" # Disable embedded integration since it's deprecated
+    url: "" # Configuration is moved, so set this string to empty.
 
 grype:
-  namespace: "dev"
-  targetImagePullSecret: "registry-credentials"
+  namespace: "dev" # Verify this namespace is available within your cluster before initiating the Tanzu Application Platform installation.
+  targetImagePullSecret: "TARGET-REGISTRY-CREDENTIALS-SECRET"
+  # In a single cluster, the connection between the scanning pod and the metadata store happens inside the cluster and does not pass through ingress. This is automatically configured, you do not need to provide an ingress connection to the store.
 
-cnrs:
-  provider: local
-  domain_name: apps.source-lab.io
-  # Fix domain template for TSL certficates
-  domain_template: "{{.Name}}-{{.Namespace}}.{{.Domain}}"
-
-metadata_store:
-  ns_for_export_app_cert: dev
-  app_service_type: ClusterIP
-
-ootb_templates:
-     iaas_auth: true
-     
-excluded_packages:
-- policy.apps.tanzu.vmware.com
-
-
-# Temporay fix for 1.2
-package_overlays:
-- name: tap-gui
-  secrets:
-  - name: k8s-reader-overlay
+policy:
+  tuf_enabled: false # By default, TUF initialization and keyless verification are deactivated.
+#tap_telemetry:
+  #customer_entitlement_account_number: "CUSTOMER-ENTITLEMENT-ACCOUNT-NUMBER" # (Optional)
