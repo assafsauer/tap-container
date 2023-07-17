@@ -7,7 +7,7 @@ spec:
   serviceAccountName: my-service-account
   containers:
   - name: my-container
-    image: asauer/tap-install:light
+    image: asauer/tap-install:1.5
     imagePullPolicy: Always
     envFrom:
     - configMapRef:
