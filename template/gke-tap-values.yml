@@ -34,7 +34,7 @@ contour:
 
 
 buildservice:
-  kp_default_repository:  $HARBOR_DOMAIN/build-service"
+  kp_default_repository:  $HARBOR_DOMAIN/build-service
   kp_default_repository_username: $HARBOR_USER
   kp_default_repository_password:  $HARBOR_PWD
 
