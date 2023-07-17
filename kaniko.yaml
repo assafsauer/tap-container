@@ -7,9 +7,9 @@ spec:
   - name: kaniko
     image: gcr.io/kaniko-project/executor:latest
     args:
-    - "--context=git://github.com/assafsauer/tap-container.git#refs/heads/lightweigt"
+    - "--context=git://github.com/assafsauer/tap-container.git#refs/heads/1.5"
     - "--context-sub-path=image"
-    - "--destination=asauer/tap-install:light"
+    - "--destination=asauer/tap-install:1.5"
     - "--build-arg"
     - "tap_release=1.5.3"
     - "--build-arg"
