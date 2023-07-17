@@ -105,10 +105,6 @@ kubectl create secret docker-registry registry-credentials --docker-server=${HAR
 
 envsubst < gke-tap-values.yml > tap-base-final.yml
 
-#tanzu package repository add tbs-full-deps-repository \
-  --url $HARBOR_DOMAIN/tap/tbs-full-deps:$tbs \
-  --namespace tap-install
-
 echo "updating packages"
 tanzu package repository add tanzu-tap-repository --url registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:$tap_version --namespace tap-install
 
