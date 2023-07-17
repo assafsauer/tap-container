@@ -99,9 +99,9 @@ tanzu secret registry add harbor-registry -y \
 ##########################################
 
 ### temp workaround for the "ServiceAccountSecretError" issue
-kubectl create secret docker-registry registry-credentials --docker-server=${{HARBOR_DOMAIN_V1} --docker-username=${HARBOR_USER} --docker-password=${HARBOR_PWD} -n tap-install
+kubectl create secret docker-registry registry-credentials --docker-server=${HARBOR_DOMAIN_V1} --docker-username=${HARBOR_USER} --docker-password=${HARBOR_PWD} -n tap-install
 
-kubectl create secret docker-registry registry-credentials --docker-server=${{HARBOR_DOMAIN_V1} --docker-username=${HARBOR_USER} --docker-password=${HARBOR_PWD} -n $tap_namespace
+kubectl create secret docker-registry registry-credentials --docker-server=${HARBOR_DOMAIN_V1} --docker-username=${HARBOR_USER} --docker-password=${HARBOR_PWD} -n $tap_namespace
 
 envsubst < gke-tap-values.yml > tap-base-final.yml
 
