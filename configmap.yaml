@@ -3,18 +3,21 @@ kind: ConfigMap
 metadata:
   name: project-config
 data:
-  tap_release: '1.4.0'
+  tap_release: '1.5.3'
   tap_namespace: dev
-  HARBOR_USER: tanzu
-  HARBOR_PWD: xxx
-  HARBOR_DOMAIN: hl.registriy.domain
+  HARBOR_USER: asauer
+  HARBOR_PWD: "xxx"
+  HARBOR_DOMAIN: "index.docker.io/asauer"
   INSTALL_REGISTRY_HOSTNAME: registry.tanzu.vmware.com
-  INSTALL_REGISTRY_USERNAME: email
-  INSTALL_REGISTRY_PASSWORD: xxxx
-  tap_release: '1.4.0'
-  tap_version: 1.4.1-build.3 ### pivnet... release-version='1.3.1-build.4' --product-file-id=1310085
-  framework_linux_md64: 1404617
-  gui_blank_Catalog: 1099786
-  gui_Yelb_Catalog: 1073911
-  essential: 1423994 ### pivnet download-product-files --product-slug='tanzu-cluster-essentials' --release-version='1.4.1' --product-file-id=1423994
-  VERSION: v0.25.0
+  INSTALL_REGISTRY_USERNAME: "sauera@vmware.com" 
+  INSTALL_REGISTRY_PASSWORD: "xxx"
+  tap_release: '1.5.3'
+  tap_version: "1.5.3" ### pivnet... release-version='1.3.1-build.4' --product-file-id=1310085
+  framework_linux_md64: "1478717"
+  gui_blank_Catalog: "1099786"
+  gui_Yelb_Catalog: "1073911"
+  essential: "1423994" ### pivnet download-product-files --product-slug='tanzu-cluster-essentials' --release-version='1.4.1' --product-file-id=1423994
+  VERSION: "v0.28.1"
+  token: "xxx"
+  tbs: "1.9.6"
+  domain: "apps.source-lab.io"
