@@ -61,3 +61,4 @@ RUN cp imgpkg-linux-amd64-0.29.0 usr/bin/imgpkg
 
 COPY ../template /
 COPY tap.sh / 
+copy tap-local-registry.sh /
